@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdlib.h>
 #include <string.h>
 using namespace std;
 
@@ -9,16 +8,18 @@ struct node
     node *link = NULL;
 };
 
+//Print whole linked-list
 void PrintLinkedList(node *head)
 {
     bool isContinue = false;
     int counter = 1;
     node *pointer = head;
 
+    cout << "\nShowing All Node: \n";
+
     do
     {
-        cout << "\nShowing All Node: \n";
-        cout << "Data-" << counter << ": " << " --> Address: " << pointer << " --> Next Node Address: " << pointer -> link;
+        cout << "Data-" << counter << ": " << pointer -> data << " --> Address: " << pointer << " --> Next node address: " << pointer -> link << "\n";
 
         if(pointer -> link == NULL)
         {
@@ -32,17 +33,17 @@ void PrintLinkedList(node *head)
 }
 
 //Insert data to the end node (pointter point to last node)
-node *Insert(node *pointer, char data[])
+void Insert(node *pointer, char newData[])
 {
     node *newNode = (node *)malloc(sizeof(node));
     newNode -> link = NULL;
-    strcpy(newNode -> data, data);
+    strcpy(newNode -> data, newData);
 
-    return newNode;
+    pointer -> link = newNode;
 }
 
 //Insert new data after chosen data
-int *InsertAfter(node *head, char searchData[], char newData[])
+int InsertAfter(node *head, char searchData[], char newData[])
 {
     node *pointer = head;
 
@@ -62,9 +63,107 @@ int *InsertAfter(node *head, char searchData[], char newData[])
         strcpy(newNode -> data, newData);
         newNode -> link = pointer -> link;
         pointer -> link = newNode;
+
+        cout << "Insert after has completed!\n";
+
+    } else
+    {
+        cout << "Head is NULL!\n";
+    }
+    
+    return 1;
+}
+
+//Insert before chosen data
+int InsertBefore(node *head, char searchData[], char newData[])
+{
+    node *pointer = head;
+
+    if(head != NULL)
+    {
+        while(strcmp(pointer -> link -> data, searchData) != 0)
+        {
+            if(pointer -> link == NULL)
+            {
+                return 0;   //Zero code means data searched not available in linked-list
+            }
+
+            pointer = pointer -> link;
+        }
+
+        node *newNode = (node *)malloc(sizeof(node));
+        strcpy(newNode -> data, newData);
+        newNode -> link = pointer -> link;
+        pointer -> link = newNode;
+
+        cout << "Insert before has completed\n";
+
+    }   else
+    {
+        cout << "Head is NULL!\n";
     }
 
+    return 1;
+}
 
+//Locate address of searched node
+int LocateAddress(node *head, char searchData[])
+{
+    node *pointer = head;
+
+    if(head != NULL)
+    {
+        while(strcmp(pointer -> data, searchData) != 0)
+        {
+            if(pointer -> link == NULL)
+            {
+                return 0; //Zero code means data searched not available
+            }
+
+            pointer = pointer -> link;
+        }
+
+        cout << "Data " << searchData << " founded in address: " << pointer << " --> Next node address: " << pointer -> link << "\n";
+
+    } else
+    {
+        cout << "Head is NULL\n";
+    }
+
+    return 1;
+}
+
+//Delete selected node
+int DeleteNode(node *head, char searchData[])
+{
+    node *prevNode;
+    node *pointer = head;
+
+    if(pointer != NULL)
+    {
+        while(strcmp(pointer -> data, searchData) != 0)
+        {
+            if(pointer -> link == NULL)
+            {
+                return 0;   //Zero code means data searched not available in linked-list
+            }
+
+            prevNode = pointer;
+            pointer = pointer -> link;
+        }
+
+        prevNode -> link = pointer -> link;
+        free(pointer);
+        pointer = NULL;
+
+        cout << "Delete node has completed!\n";
+
+    } else
+    {
+        cout << "Head is NULL\n";
+    }
+
+    return 1;
 }
 
 int main()
@@ -72,7 +171,8 @@ int main()
     bool isContinue = false;
     bool isCorrect = false;
     char userAnswerA;   //Save user's character type anser
-    char dataContainer[10];
+    char newData[10];
+    char searchData[10];
     int userAnswerI;    //Save user's integer type answer
     int counter = 1;
     node *head = (node *)malloc(sizeof(node));
@@ -88,11 +188,13 @@ int main()
     do
     {
         cout << "Data-" << counter << ": ";
-        gets(dataContainer);
+        fgets(newData, 10, stdin);
+        newData[strlen(newData) - 1] = '\0';
 
-        if(strlen(dataContainer) != 0)
+        if(newData[0] != '\0')
         {
-            pointer -> link = Insert(pointer, dataContainer);
+            Insert(pointer, newData);
+            pointer = pointer -> link;
 
         } else
         {
@@ -103,16 +205,106 @@ int main()
 
     } while (isContinue);
     
-
     do
     {
-        cout << "\nChoose operation (input number only):\n1. Insert after\n2. Insert before\n3. Locate Address\n4. Delete\nAnswer: ";
+        cout << "\nChoose operation (1 - 5):\n1. Insert after\n2. Insert before\n3. Locate Address\n4. Print list\n5. Delete\nAnswer: ";
         cin >> userAnswerI;
+        cin.get();
 
-        switch (userAnswerI)
-        case 1 : InsertAfter;
+        if(userAnswerI == 1)
+        {
+            PrintLinkedList(head -> link);
 
-        cout << "Do you want to do operation again? ('Y' = yes / 'N' = no): ";
+            cout << "Input your target node (data): ";
+            fgets(searchData, 10, stdin);
+            searchData[strlen(searchData) - 1] = '\0';
+
+            cout << "Input data for new node: ";
+            fgets(newData, 10, stdin);
+            newData[strlen(newData) - 1] = '\0';
+
+            if(searchData[0] == '\0' || newData[0] == '\0')
+            {
+                cout << "Data inputed invalid!\n";
+
+            } else
+            {
+                if(!InsertAfter(head, searchData, newData))
+                {
+                    cout << "Target data not found!\n";
+                }
+            }
+
+        } else if(userAnswerI == 2)
+        {
+            PrintLinkedList(head -> link);
+
+            cout << "Input your target node (data): ";
+            fgets(searchData, 10, stdin);
+            searchData[strlen(searchData) - 1] = '\0';
+
+            cout << "Input data for new node: ";
+            fgets(newData, 10, stdin);
+            newData[strlen(newData) - 1] = '\0';
+
+            if(searchData[0] != '\0' && newData[0] != '\0')
+            {
+                if(!InsertBefore(head, searchData, newData))
+                {
+                    cout << "\nTarget data not found!\n";
+                }
+
+            } else
+            {
+                cout << "Data inputed invalid!\n";
+            }
+
+        } else if(userAnswerI == 3)
+        {
+            PrintLinkedList(head -> link);
+
+            cout << "Input your target node (data): ";
+            fgets(searchData, 10, stdin);
+            searchData[strlen(searchData) - 1] = '\0';
+
+            if(searchData[0] != '\0')
+            {
+                if(!LocateAddress(head, searchData))
+                {
+                    cout << "Data searched is not available in linked-list\n";
+                };
+
+            } else
+            {
+                cout << "Input data is invalid\n";
+            }
+
+        }else if(userAnswerI == 4)
+        {
+            PrintLinkedList(head -> link);
+
+        }else if(userAnswerI == 5)
+        {
+            PrintLinkedList(head -> link);
+
+            cout << "Input your target node (data): ";
+            fgets(searchData, 10, stdin);
+            searchData[strlen(searchData) - 1] = '\0';
+
+            if(searchData[0] != '\0')
+            {
+                if(!DeleteNode(head, searchData))
+                {
+                    cout << "Data searched is not available in linked-list\n";
+                }
+
+            } else
+            {
+                cout << "Input data is invalid!\n";
+            }
+        }
+
+        cout << "\nDo you want to do operation again? ('Y' = yes / 'N' = no): ";
         cin >> userAnswerA;
 
         do
@@ -122,21 +314,21 @@ int main()
                 isContinue = true;
                 isCorrect = true;
 
-            } else if(userAnswerA == 'N' || userAnswerA == 'a')
+            } else if(userAnswerA == 'N' || userAnswerA == 'n')
             {
                 isContinue = false;
-                isCorrect = false;
+                isCorrect = true;
 
             } else
             {
                 cout << "Your input was wrong!\n";
-                cout << "Do you want to do operation again? ('Y' = yes / 'N' = no): ";
+                cout << "\nDo you want to do operation again? ('Y' = yes / 'N' = no): ";
                 cin >> userAnswerA;
             }
 
-        } while (isCorrect);
+        } while (!isCorrect);
         
     } while(isContinue);
 
-    cout << "\nThankyou !\nSee you next time!";
+    cout << "Thankyou !\nSee you next time!";
 }
