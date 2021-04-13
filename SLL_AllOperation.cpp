@@ -166,6 +166,39 @@ int DeleteNode(node *head, char searchData[])
     return 1;
 }
 
+//Reverse whole linked list
+int ReverseList(node **head)
+{
+    node *pointerNode = *head;
+    pointerNode -> link = NULL; //Set first node to NULL (after this process this node will become the last node)
+
+    node *nextNode = *head;
+    node *prevNode = *head;
+
+    nextNode = nextNode -> link;
+    prevNode = prevNode -> link;
+
+    while(nextNode -> link != NULL)
+    {
+        pointerNode -> link = prevNode;
+        pointerNode = nextNode;
+        prevNode = pointerNode;
+        pointerNode = nextNode;
+        nextNode = nextNode -> link;
+    }
+
+    pointerNode = *head;
+    pointerNode -> link = nextNode;
+
+    return 1;
+}
+
+//Delete whole linked list
+int DeleteList(node *head)
+{
+    return 1;
+}
+
 int main()
 {
     bool isContinue = false;
@@ -207,7 +240,7 @@ int main()
     
     do
     {
-        cout << "\nChoose operation (1 - 5):\n1. Insert after\n2. Insert before\n3. Locate Address\n4. Print list\n5. Delete\nAnswer: ";
+        cout << "\nChoose operation (1 - 7):\n1. Insert after\n2. Insert before\n3. Locate Address\n4. Print list\n5. Delete data\n6. Reverse list\n7. Delete list\nAnswer: ";
         cin >> userAnswerI;
         cin.get();
 
@@ -279,11 +312,11 @@ int main()
                 cout << "Input data is invalid\n";
             }
 
-        }else if(userAnswerI == 4)
+        } else if(userAnswerI == 4)
         {
             PrintLinkedList(head -> link);
 
-        }else if(userAnswerI == 5)
+        } else if(userAnswerI == 5)
         {
             PrintLinkedList(head -> link);
 
@@ -302,6 +335,18 @@ int main()
             {
                 cout << "Input data is invalid!\n";
             }
+
+        } else if(userAnswerI == 6)
+        {
+            ReverseList(&head);
+
+            cout << "\nList after Reversed: ";
+            
+            PrintLinkedList(head -> link);
+
+        } else if(userAnswerA == 7)
+        {
+
         }
 
         cout << "\nDo you want to do operation again? ('Y' = yes / 'N' = no): ";
@@ -330,5 +375,5 @@ int main()
         
     } while(isContinue);
 
-    cout << "Thankyou !\nSee you next time!";
+    cout << "Thank you !\nSee you next time!";
 }
