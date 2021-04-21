@@ -11,6 +11,12 @@ struct node
 //Print whole linked-list
 void PrintLinkedList(node *head)
 {
+    if(head == NULL)
+    {
+        cout << "Linked list not available! Please create a linked list first!\n";
+        return;
+    }
+
     bool isContinue = false;
     int counter = 1;
     node *pointer = head -> link;
@@ -26,7 +32,7 @@ void PrintLinkedList(node *head)
     }   
 }
 
-//Insert data to the end node (pointter point to last node)
+//Insert data to the end node (pointer point to last node)
 void Insert(node *pointer, char newData[])
 {
     node *newNode = (node *)malloc(sizeof(node));
@@ -181,9 +187,23 @@ node *ReverseList(node *head)
 }
 
 //Delete whole linked list
-int DeleteList(node *head)
+node *DeleteLinkedList(node *head)
 {
-    return 1;
+    node *pointerNode = (node *)malloc(sizeof(node));
+    pointerNode = head -> link;
+        
+    node *nextNode = (node *)malloc(sizeof(node));
+    nextNode = head -> link;    //Variable to store the next node of deleted node
+
+    while(nextNode != NULL)
+    {
+        nextNode = nextNode -> link;
+        pointerNode -> link = NULL;
+        free(pointerNode);
+        pointerNode = nextNode;
+    }
+
+    return nextNode;
 }
 
 int main()
@@ -205,6 +225,7 @@ int main()
     cout << "===== Insert data section =====\n";
 
     isContinue = true;
+
     do
     {
         cout << "Data-" << counter << ": ";
@@ -233,6 +254,9 @@ int main()
 
         if(userAnswerI == 1)
         {
+
+        } else if(userAnswerI == 2)
+        {
             PrintLinkedList(head);
 
             cout << "Input your target node (data): ";
@@ -255,7 +279,7 @@ int main()
                 }
             }
 
-        } else if(userAnswerI == 2)
+        } else if(userAnswerI == 3)
         {
             PrintLinkedList(head);
 
@@ -279,7 +303,7 @@ int main()
                 cout << "Data inputed invalid!\n";
             }
 
-        } else if(userAnswerI == 3)
+        } else if(userAnswerI == 4)
         {
             PrintLinkedList(head);
 
@@ -299,11 +323,11 @@ int main()
                 cout << "Input data is invalid\n";
             }
 
-        } else if(userAnswerI == 4)
+        } else if(userAnswerI == 5)
         {
             PrintLinkedList(head);
 
-        } else if(userAnswerI == 5)
+        } else if(userAnswerI == 6)
         {
             PrintLinkedList(head);
 
@@ -323,7 +347,7 @@ int main()
                 cout << "Input data is invalid!\n";
             }
 
-        } else if(userAnswerI == 6)
+        } else if(userAnswerI == 7)
         {
             head -> link = ReverseList(head);
 
@@ -331,9 +355,15 @@ int main()
             
             PrintLinkedList(head);
 
-        } else if(userAnswerA == 7)
+        } else if(userAnswerI == 8)
         {
+            head = DeleteLinkedList(head);
 
+            cout << "Linked List has been deleted!\n";
+
+        } else
+        {
+            cout << "You input the wrong number!\n";
         }
 
         cout << "\nDo you want to do operation again? ('Y' = yes / 'N' = no): ";
