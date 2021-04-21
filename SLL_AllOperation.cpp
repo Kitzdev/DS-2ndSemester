@@ -20,7 +20,34 @@ node *CreateNode(char newData[])
 
 node *CreateLinkedList()
 {
-    node *
+    bool isContinue = true;
+    char newData[10];
+    int counter = 1;
+
+    node *head = (node *)malloc(sizeof(node));
+    node *pointer = head;
+
+    do
+    {
+        cout << "Data-" << counter << ": ";
+        fgets(newData, 10, stdin);
+        newData[strlen(newData) - 1] = '\0';
+
+        if(newData[0] != '\0')
+        {
+            pointer -> link = CreateNode(newData);
+            pointer = pointer -> link;
+
+        } else
+        {
+            isContinue = false;
+        }
+
+        counter++;
+
+    } while(isContinue);
+    
+    return head;
 }
 
 //Print whole linked-list
@@ -194,6 +221,11 @@ node *ReverseList(node *head)
 //Delete whole linked list
 node *DeleteLinkedList(node *head)
 {
+    if(head == NULL)
+    {
+        return;
+    }
+
     node *pointerNode = (node *)malloc(sizeof(node));
     pointerNode = head -> link;
         
@@ -213,44 +245,21 @@ node *DeleteLinkedList(node *head)
 
 int main()
 {
-    bool isContinue = false;
     bool isCorrect = false;
+    bool isContinue = false;
     char userAnswerA;   //Save user's character type anser
     char newData[10];
     char searchData[10];
     int userAnswerI;    //Save user's integer type answer
-    int counter = 1;
     node *head = (node *)malloc(sizeof(node));
-    node *pointer = head;
 
     cout << "===================================\n";
     cout << "Welcome to SLL-AllOperationIncluded\n";
     cout << "===================================\n\n";
 
-    cout << "===== Insert data section =====\n";
+    cout << "===== Create First Linked-List =====\n";
+    head = CreateLinkedList();
 
-    isContinue = true;
-
-    do
-    {
-        cout << "Data-" << counter << ": ";
-        fgets(newData, 10, stdin);
-        newData[strlen(newData) - 1] = '\0';
-
-        if(newData[0] != '\0')
-        {
-            Insert(pointer, newData);
-            pointer = pointer -> link;
-
-        } else
-        {
-            isContinue = false;
-        }
-
-        counter++;
-
-    } while (isContinue);
-    
     do
     {
         cout << "\nChoose operation (1 - 8):\n1. Create a linked-list\n2. Insert after\n3. Insert before\n4. Locate address\n5. Print linked-list\n6. Delete data in linked-list\n7. Reverse linked-list\n8. Delete linked-list\nAnswer: ";
@@ -259,7 +268,29 @@ int main()
 
         if(userAnswerI == 1)
         {
+            do
+            {
+                cout << "Previous linked-list will be deleted!\nDo you want to create a new one? ('Y' = YES || 'N' = NO): ";
 
+                if(userAnswerA == 'Y' || userAnswerA == 'y')
+                {
+                    isContinue = true;
+                    isCorrect = true;
+                    head = DeleteLinkedList(head);
+                    head = CreateLinkedList();
+
+                } else if(userAnswerA == 'N' || userAnswerA == 'n')
+                {
+                    isContinue = false;
+                    isCorrect = true;
+
+                } else
+                {
+                    cout << "Your input was wrong!\n";
+                }
+
+            } while (!isCorrect);
+        
         } else if(userAnswerI == 2)
         {
             PrintLinkedList(head);
@@ -371,11 +402,11 @@ int main()
             cout << "You input the wrong number!\n";
         }
 
-        cout << "\nDo you want to do operation again? ('Y' = yes / 'N' = no): ";
-        cin >> userAnswerA;
-
         do
         {
+            cout << "\nDo you want to do operation again? ('Y' = yes / 'N' = no): ";
+            cin >> userAnswerA;
+
             if(userAnswerA == 'Y' || userAnswerA == 'y')
             {
                 isContinue = true;
@@ -389,8 +420,6 @@ int main()
             } else
             {
                 cout << "Your input was wrong!\n";
-                cout << "\nDo you want to do operation again? ('Y' = yes / 'N' = no): ";
-                cin >> userAnswerA;
             }
 
         } while (!isCorrect);
