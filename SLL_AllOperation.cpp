@@ -55,8 +55,12 @@ void PrintLinkedList(node *head)
 {
     if(head == NULL)
     {
-        cout << "Linked list not available! Please create a linked list first!\n";
+        cout << "Linked list not available! Please create a linked-list first!\n";
         return;
+
+    } else if(head -> link == NULL)
+    {
+        cout << "Linked list is empty! Please do insert after or create a linked-list";
     }
 
     bool isContinue = false;
@@ -223,7 +227,7 @@ node *DeleteLinkedList(node *head)
 {
     if(head == NULL)
     {
-        return;
+        return head;
     }
 
     node *pointerNode = (node *)malloc(sizeof(node));
@@ -271,9 +275,11 @@ int main()
             do
             {
                 cout << "Previous linked-list will be deleted!\nDo you want to create a new one? ('Y' = YES || 'N' = NO): ";
+                cin >> userAnswerA;
 
                 if(userAnswerA == 'Y' || userAnswerA == 'y')
                 {
+                    cin.get();
                     isContinue = true;
                     isCorrect = true;
                     head = DeleteLinkedList(head);
