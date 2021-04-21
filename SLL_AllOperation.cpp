@@ -13,23 +13,17 @@ void PrintLinkedList(node *head)
 {
     bool isContinue = false;
     int counter = 1;
-    node *pointer = head;
+    node *pointer = head -> link;
 
     cout << "\nShowing All Node: \n";
 
-    do
+    while(pointer != NULL)
     {
         cout << "Data-" << counter << ": " << pointer -> data << " --> Address: " << pointer << " --> Next node address: " << pointer -> link << "\n";
 
-        if(pointer -> link == NULL)
-        {
-            break;
-        } 
-
         counter++;
         pointer = pointer -> link;
-
-    } while(true);
+    }   
 }
 
 //Insert data to the end node (pointter point to last node)
@@ -167,30 +161,23 @@ int DeleteNode(node *head, char searchData[])
 }
 
 //Reverse whole linked list
-int ReverseList(node **head)
+node *ReverseList(node *head)
 {
-    node *pointerNode = *head;
-    pointerNode -> link = NULL; //Set first node to NULL (after this process this node will become the last node)
+    node *pointerNode = head -> link;
+    node *nextNode = head -> link -> link;
+    node *prevNode = head -> link;
 
-    node *nextNode = *head;
-    node *prevNode = *head;
+    pointerNode -> link = NULL;
 
-    nextNode = nextNode -> link;
-    prevNode = prevNode -> link;
-
-    while(nextNode -> link != NULL)
+    while(nextNode != NULL)
     {
-        pointerNode -> link = prevNode;
-        pointerNode = nextNode;
-        prevNode = pointerNode;
         pointerNode = nextNode;
         nextNode = nextNode -> link;
+        pointerNode -> link = prevNode;
+        prevNode = pointerNode;
     }
 
-    pointerNode = *head;
-    pointerNode -> link = nextNode;
-
-    return 1;
+    return pointerNode;
 }
 
 //Delete whole linked list
@@ -246,7 +233,7 @@ int main()
 
         if(userAnswerI == 1)
         {
-            PrintLinkedList(head -> link);
+            PrintLinkedList(head);
 
             cout << "Input your target node (data): ";
             fgets(searchData, 10, stdin);
@@ -270,7 +257,7 @@ int main()
 
         } else if(userAnswerI == 2)
         {
-            PrintLinkedList(head -> link);
+            PrintLinkedList(head);
 
             cout << "Input your target node (data): ";
             fgets(searchData, 10, stdin);
@@ -294,7 +281,7 @@ int main()
 
         } else if(userAnswerI == 3)
         {
-            PrintLinkedList(head -> link);
+            PrintLinkedList(head);
 
             cout << "Input your target node (data): ";
             fgets(searchData, 10, stdin);
@@ -314,11 +301,11 @@ int main()
 
         } else if(userAnswerI == 4)
         {
-            PrintLinkedList(head -> link);
+            PrintLinkedList(head);
 
         } else if(userAnswerI == 5)
         {
-            PrintLinkedList(head -> link);
+            PrintLinkedList(head);
 
             cout << "Input your target node (data): ";
             fgets(searchData, 10, stdin);
@@ -338,11 +325,11 @@ int main()
 
         } else if(userAnswerI == 6)
         {
-            ReverseList(&head);
+            head -> link = ReverseList(head);
 
             cout << "\nList after Reversed: ";
             
-            PrintLinkedList(head -> link);
+            PrintLinkedList(head);
 
         } else if(userAnswerA == 7)
         {
@@ -375,5 +362,5 @@ int main()
         
     } while(isContinue);
 
-    cout << "Thank you !\nSee you next time!";
+    cout << "Thank you !\nSee you next time!\n";
 }
