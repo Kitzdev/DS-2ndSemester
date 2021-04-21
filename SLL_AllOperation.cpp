@@ -8,6 +8,21 @@ struct node
     node *link = NULL;
 };
 
+//Insert data to the end node (pointer point to last node)
+node *CreateNode(char newData[])
+{
+    node *newNode = (node *)malloc(sizeof(node));
+    newNode -> link = NULL;
+    strcpy(newNode -> data, newData);
+
+    return newNode;
+}
+
+node *CreateLinkedList()
+{
+    node *
+}
+
 //Print whole linked-list
 void PrintLinkedList(node *head)
 {
@@ -30,16 +45,6 @@ void PrintLinkedList(node *head)
         counter++;
         pointer = pointer -> link;
     }   
-}
-
-//Insert data to the end node (pointer point to last node)
-void Insert(node *pointer, char newData[])
-{
-    node *newNode = (node *)malloc(sizeof(node));
-    newNode -> link = NULL;
-    strcpy(newNode -> data, newData);
-
-    pointer -> link = newNode;
 }
 
 //Insert new data after chosen data
@@ -248,7 +253,7 @@ int main()
     
     do
     {
-        cout << "\nChoose operation (1 - 7):\n1. Insert after\n2. Insert before\n3. Locate Address\n4. Print list\n5. Delete data\n6. Reverse list\n7. Delete list\nAnswer: ";
+        cout << "\nChoose operation (1 - 8):\n1. Create a linked-list\n2. Insert after\n3. Insert before\n4. Locate address\n5. Print linked-list\n6. Delete data in linked-list\n7. Reverse linked-list\n8. Delete linked-list\nAnswer: ";
         cin >> userAnswerI;
         cin.get();
 
