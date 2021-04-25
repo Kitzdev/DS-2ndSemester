@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include <stdlib.h>
 #include <iomanip>
 using namespace std;
@@ -9,103 +10,88 @@ struct node
     node *link = NULL;
 };
 
-//Create a new node.
-node *CreateNode(int data)
+class Stack
 {
-    node *newNode = (node *)malloc(sizeof(node));
-    newNode -> data = data;
-    newNode -> link = NULL;
+    public:
 
-    return newNode;
-}
+    node *stackHead = (node *)malloc(sizeof(node));
 
-//Function to display information about stack pool.
-void DisplayStack(node *head)
-{
-    node *pointNode = (node *)malloc(sizeof(node));
-    pointNode -> link = head -> link;
-
-    cout << "||  Node Address  || " << "Node Data ||  " << "Next Node Address  ||\n";
-    cout << "--------------------------------------------------------\n";
-
-    while(pointNode -> link != NULL)
+    void PushElement(int data)
     {
-        cout << "||" << setw(15) << pointNode -> link << " ||" << setw(8) << pointNode -> link -> data;
+        node *newNode = (node *)malloc(sizeof(node));
+        newNode -> data = data;
+        newNode -> link = stackHead -> link;
+        stackHead -> link = newNode;
+    }   
 
-        pointNode -> link = pointNode -> link -> link;
-
-        cout << "   ||" << setw(18) << pointNode -> link << "   ||" << "\n";
-    }
-}
-
-//Function to store items to the stack.
-node *PushElement(node *head, int data)
-{
-    //pointerNode is used to store the new node.
-    node *pointerNode = (node *)malloc(sizeof(node));
-
-    //New node pointing to the item pointed by the head pointer.
-    pointerNode -> link = CreateNode(data);
-    pointerNode -> link -> link = head -> link;
-    
-    //Return the address of the new node.
-    return pointerNode -> link;
-}
-
-//Create a new stack.
-node *CreateStack()
-{
-    int poolSize = 10;
-    node *head = (node *)malloc(sizeof(node));
-
-    for(int i = 0; i < poolSize; i++)
+    void PopStack()
     {
-        //Update the linked part of the head to the top item of the stack.
-        head -> link = PushElement(head, rand() % 1000000);
+        node *tempPointer = (node *)malloc(sizeof(node));
+        tempPointer -> link = stackHead -> link -> link;
+            
+        cout << "Data popped out: " << stackHead -> link -> data << "\n";
+
+        free(stackHead -> link);
+        stackHead -> link = tempPointer -> link;
     }
 
-    //Return the address of the top item of the new stack.
-    return head -> link;
-}
+    int TopStack()
+    {
+        return stackHead -> link -> data;
+    }
 
-//Take the top item of the stack.
-node *PopStack(node *head)
-{
-    node *pointerNode = (node *)malloc(sizeof(node));
-    pointerNode -> link = head -> link;
-    node *tempNode = pointerNode -> link -> link;   //Store the second item from the top stack.
-    int tempInt = pointerNode -> link -> data;
+    bool IsEmpty()
+    {
+        if(stackHead -> link == NULL)
+        {
+            return true;
+
+        } else
+        {
+            return false;
+        } 
+    }
     
-    cout << "Data popped out: " << tempInt << "\n";
+    void PrintStack()
+    {
+        node *stackPointer = (node *)malloc(sizeof(node));
 
-    //Free the node from memory and update the linked part of pointerNode.  
-    free(pointerNode -> link);
-    pointerNode -> link = NULL;
+        stackPointer -> link = stackHead -> link;
 
-    //Return the new node that acts as the top stack.
-    return tempNode;
-}
+        cout << "||  Node Address  || " << "Node Data ||  " << "Next Node Address  ||\n";
+        cout << "--------------------------------------------------------\n";
+
+        while(stackPointer -> link != NULL)
+        {
+            cout << "||" << setw(15) << stackPointer -> link << " ||" << setw(8) << stackPointer -> link -> data;
+
+            stackPointer -> link = stackPointer -> link -> link;
+
+            cout << "   ||" << setw(18) << stackPointer -> link << "   ||" << "\n";
+        }
+    }
+};
 
 int main()
 {
     int poolSize = 10;
 
-    node *head = (node *)malloc(sizeof(node));
-    head -> link = NULL;
+    Stack theStack;
 
-    //Linked part of the head pointing to the first item of the stack.
-    head -> link = CreateStack();
+    for(int i = 0; i < poolSize; i++)
+    {
+        theStack.PushElement((rand() % 1000000));
+    }
 
-    cout << "First Node Address: " << head -> link << "\n\n";
+    cout << "First Node Address: " << theStack.stackHead -> link << "\n\n";
 
-    DisplayStack(head);
+    theStack.PrintStack();
 
     cout << "\n";
 
     for(int i = 0; i < poolSize; i++)
     {
-        //Update link part of the head, so now it points to the most top item of the stack.
-        head -> link = PopStack(head);
+        theStack.PopStack();
     }
 
     cout << "All data have popped out!\n";
