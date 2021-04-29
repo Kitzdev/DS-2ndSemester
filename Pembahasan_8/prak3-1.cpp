@@ -24,7 +24,7 @@ class Stack
         stackHead -> link = newNode;
     }   
 
-    int PopStack()
+    int Pop()
     {
         node *tempPointer = (node *)malloc(sizeof(node));
         tempPointer -> link = stackHead -> link -> link;
@@ -91,7 +91,7 @@ int main()
 
     for(int i = 0; i < poolSize; i++)
     {
-        cout << "Data popped out: " << theStack.PopStack() << "\n";
+        cout << "Data popped out: " << theStack.Pop() << "\n";
     }
 
     cout << "All data have popped out!\n";
