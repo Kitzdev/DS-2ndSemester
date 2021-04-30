@@ -86,7 +86,6 @@ int main()
 
         while(!(theStack.IsEmpty()) && (theStack.TopStack()) < tempData)
         {
-            cout << i  << " " << tempData << "\n";
             tempStack.PushElement(theStack.Pop());
         }
 
@@ -96,12 +95,6 @@ int main()
         {
             theStack.PushElement(tempStack.Pop());
         }
-
-        if(!(tempStack.IsEmpty()))
-        {
-            tempStack.PrintStack();
-        }
-        
     }
 
     cout << "First Node Address: " << theStack.stackHead -> link << "\n\n";
