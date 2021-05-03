@@ -72,6 +72,8 @@ int main()
     int poolSize = 10;
     int tempData = 0;
 
+    cout << "-----Enqueque process-----\n";
+
     for(int i = 0; i < poolSize; i++)
     {
         tempData = rand() % 1000000;
@@ -81,7 +83,7 @@ int main()
         theQueue.Enqueue(tempData);
     }
     
-    cout << "\n";
+    cout << "\n-----Dequeue Process-----\n";
     
     for(int i = 0; i < poolSize; i++)
     {
