@@ -9,6 +9,11 @@ struct node
     node *link = NULL;
 };
 
+/*
+    The tail was used to push data to the queue and the head used to pop data from the queue.
+    En queue from the tail makes the queue has O(1) time complexity when enqueueing data.
+    Dequeue from the tail also makes the queue has O(1) time complexity when dequeuing data.
+*/
 class Queue
 {
     public:
@@ -16,6 +21,7 @@ class Queue
     node *queueHead = (node *)malloc(sizeof(node));
     node *queueTail = (node *)malloc(sizeof(node));   
 
+    //Check wether the queue is empty or not.
     bool IsEmpty()
     {
         if(queueHead -> link == NULL)
@@ -28,11 +34,13 @@ class Queue
         }
     }
 
+    //Check the first element of the queue.
     int FirstElement()
     {
         return queueTail -> link -> data;
     }
 
+    //Enqueue new data to the queue.
     void Enqueue(int data)
     {
         node *newNode =  (node * )malloc(sizeof(node));
@@ -50,7 +58,8 @@ class Queue
             queueTail -> link = newNode;
         }
     }
-     
+
+    //Dequeue data from the queue. 
     int Dequeue()
     {
         int tempData;
@@ -74,6 +83,7 @@ int main()
 
     cout << "-----Enqueque process-----\n";
 
+    //En queue data to the queue.
     for(int i = 0; i < poolSize; i++)
     {
         tempData = rand() % 1000000;
@@ -85,6 +95,7 @@ int main()
     
     cout << "\n-----Dequeue Process-----\n";
     
+    //Dequeue data from the queue.
     for(int i = 0; i < poolSize; i++)
     {
         cout << "Data Dequeued: " << theQueue.Dequeue() << "\n";
