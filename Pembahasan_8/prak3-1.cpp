@@ -16,6 +16,7 @@ class Stack
 
     node *stackHead = (node *)malloc(sizeof(node));
 
+    //Push a new element to the stack.
     void PushElement(int data)
     {
         node *newNode = (node *)malloc(sizeof(node));
@@ -24,6 +25,7 @@ class Stack
         stackHead -> link = newNode;
     }   
 
+    //Pop the most top element from the stack.
     int Pop()
     {
         node *tempPointer = (node *)malloc(sizeof(node));
@@ -35,11 +37,13 @@ class Stack
         return tempData;
     }
 
+    //Check the most top element from the stack.
     int TopStack()
     {
         return stackHead -> link -> data;
     }
 
+    //Check whether the stack is empty or not.
     bool IsEmpty()
     {
         if(stackHead -> link == NULL)
@@ -52,6 +56,7 @@ class Stack
         } 
     }
     
+    //Print the contents of the stack. 
     void PrintStack()
     {
         node *stackPointer = (node *)malloc(sizeof(node));
@@ -78,6 +83,7 @@ int main()
 
     Stack theStack;
 
+    //Push random numbers to the stacks.
     for(int i = 0; i < poolSize; i++)
     {
         theStack.PushElement((rand() % 1000000));
@@ -85,10 +91,12 @@ int main()
 
     cout << "First Node Address: " << theStack.stackHead -> link << "\n\n";
 
+    //Call a function to print the stack.
     theStack.PrintStack();
 
     cout << "\n";
 
+    //Pop item from the stack.
     for(int i = 0; i < poolSize; i++)
     {
         cout << "Data popped out: " << theStack.Pop() << "\n";
