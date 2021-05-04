@@ -15,12 +15,14 @@ class Queue
     int front = -1;
     int rear = -1;
 
+    //Constructor
     Queue(int sizeOfQueue)
     {
         size = sizeOfQueue;
         queue = new int[sizeOfQueue];
     }
 
+    //Check wether the queue is empty or not.
     bool IsEmpty()
     {
         if((front == -1) && (rear == -1))
@@ -33,6 +35,7 @@ class Queue
         }
     }
 
+    //Check the first element of the queue.
     int FirstElement()
     {
         if(IsEmpty())
@@ -44,6 +47,7 @@ class Queue
         return queue[rear];
     }
 
+    //Enqueue new data to the queue.
     void Enqueue(int data)
     {
         if(IsEmpty())
@@ -66,6 +70,7 @@ class Queue
         queue[rear] = data;
     }
 
+    //Dequeue data from the queue. 
     int Dequeue()
     {
         int tempData;
@@ -84,6 +89,7 @@ class Queue
         return tempData;
     }
 
+    //Delete the unused array.
     void DeleteQueue()
     {
         delete [] queue;
@@ -102,6 +108,7 @@ int main()
 
     cout << "\nGenerating random number ...\n";
 
+    //En queue data to the queue.
     for(int i = 0; i < queueSize; i++)
     {
         tempData = rand() % 1000000;
@@ -112,6 +119,7 @@ int main()
 
     cout << "\nDequeue process ...\n";
     
+    //Dequeue data from the queue.
     for(int i = 0; i < queueSize; i++)
     {
         cout << "Number dequeued: " << theQueue.Dequeue() << "\n";
