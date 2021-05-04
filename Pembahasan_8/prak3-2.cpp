@@ -16,7 +16,8 @@ class Stack
 
     node *stackHead = (node *)malloc(sizeof(node));
 
-    void PushElement(int data)
+    //Push a new element to the stack.
+    void Push(int data)
     {
         node *newNode = (node *)malloc(sizeof(node));
         newNode -> data = data;
@@ -24,6 +25,7 @@ class Stack
         stackHead -> link = newNode;
     }   
 
+    //Pop the most top element from the stack.
     int Pop()
     {
         node *tempPointer = (node *)malloc(sizeof(node));
@@ -35,11 +37,13 @@ class Stack
         return tempData;
     }
 
+    //Check the most top element from the stack.
     int TopStack()
     {
         return stackHead -> link -> data;
     }
 
+    //Check whether the stack is empty or not.
     bool IsEmpty()
     {
         if(stackHead -> link == NULL)
@@ -52,6 +56,7 @@ class Stack
         } 
     }
     
+    //Print the contents of the stack. 
     void PrintStack()
     {
         node *stackPointer = (node *)malloc(sizeof(node));
@@ -80,29 +85,35 @@ int main()
     Stack theStack;
     Stack tempStack;
 
+    /*
+        Push random numbers to the stacks.
+        When the new data is bigger than the top of the stack, move the top element of the stack to the temporary stack. So the stack will be arranged in ascending way.
+    */
     for(int i = 0; i < poolSize; i++)
     {
         tempData = rand() % 1000000;
 
         while(!(theStack.IsEmpty()) && (theStack.TopStack()) < tempData)
         {
-            tempStack.PushElement(theStack.Pop());
+            tempStack.Push(theStack.Pop());
         }
 
-        theStack.PushElement(tempData);
+        theStack.Push(tempData);
 
         while(!(tempStack.IsEmpty()))
         {
-            theStack.PushElement(tempStack.Pop());
+            theStack.Push(tempStack.Pop());
         }
     }
 
     cout << "First Node Address: " << theStack.stackHead -> link << "\n\n";
 
+    //Call a function to print the stack.
     theStack.PrintStack();
 
     cout << "\n";
 
+    //Pop item from the stack.
     for(int i = 0; i < poolSize; i++)
     {
         cout << "Data popped out: " << theStack.Pop() << "\n";
