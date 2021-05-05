@@ -9,8 +9,7 @@ using namespace std;
 */
 class Queue
 {
-    public:
-
+public:
     int size;
     int *queue;
     int front = -1;
@@ -26,11 +25,11 @@ class Queue
     //Check wether the queue is empty or not.
     bool IsEmpty()
     {
-        if((front == -1) && (rear == -1))
+        if ((front == -1) && (rear == -1))
         {
             return true;
-
-        } else
+        }
+        else
         {
             return false;
         }
@@ -39,31 +38,38 @@ class Queue
     //Check the first element of the queue.
     int FirstElement()
     {
-        if(IsEmpty())
+        if (IsEmpty())
         {
             cout << "Queue is empty!\n";
-            return -1;  //-1 means queue is empty.
+
+            return -1; //-1 means queue is empty.
         }
 
         return queue[rear];
     }
 
-    //Enqueue new data to the queue.
+    /*
+        Enqueue new data to the queue.
+
+        If the queue was empty, we set the front and rear to 0, so we can mark the queue as a non-empty queue.
+
+        If the front was equal to rear + 1 (in case this is a circular array), then it means the queue is already full.
+    */
     void Enqueue(int data)
     {
-        if(IsEmpty())
+        if (IsEmpty())
         {
             front = 0;
             rear = 0;
-
-        } else if(front == rear && front != 0 && rear != 0)
-        { 
+        }
+        else if (front == ((rear + 1) % size))
+        {
             cout << "Queue is full!\n";
             front = -1;
             rear = -1;
             return;
-
-        } else
+        }
+        else
         {
             rear = (size + rear + 1) % size;
         }
@@ -71,7 +77,7 @@ class Queue
         queue[rear] = data;
     }
 
-    //Dequeue data from the queue. 
+    //Dequeue data from the queue.
     int Dequeue()
     {
         int tempData;
@@ -80,8 +86,8 @@ class Queue
         {
             cout << "Queue is empty!\n";
             return -1;
-
-        } else
+        }
+        else
         {
             tempData = queue[front];
             front = (size + front + 1) % size;
@@ -93,7 +99,7 @@ class Queue
     //Delete the unused array.
     void DeleteQueue()
     {
-        delete [] queue;
+        delete[] queue;
     }
 };
 
@@ -110,7 +116,7 @@ int main()
     cout << "\nGenerating random number ...\n";
 
     //En queue data to the queue.
-    for(int i = 0; i < queueSize; i++)
+    for (int i = 0; i < queueSize; i++)
     {
         tempData = rand() % 1000000;
         theQueue.Enqueue(tempData);
@@ -119,9 +125,9 @@ int main()
     }
 
     cout << "\nDequeue process ...\n";
-    
+
     //Dequeue data from the queue.
-    for(int i = 0; i < queueSize; i++)
+    for (int i = 0; i < queueSize; i++)
     {
         cout << "Number dequeued: " << theQueue.Dequeue() << "\n";
     }
