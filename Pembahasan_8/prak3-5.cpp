@@ -40,7 +40,7 @@ class Stack
 
         } else
         {
-            return -1;
+            return -1;  //-1 code means the stack is already empty.
         }
     }
 
@@ -72,9 +72,7 @@ class Stack
 
         } else
         {
-            int tempPosition = headPosition;
-            headPosition--;
-            return stack[tempPosition];
+            return stack[headPosition--];
         }
     }
 };
@@ -94,7 +92,14 @@ int main()
 
     /*
         Push random numbers to the stacks.
-        When the new data is bigger than the top of the stack, move the top element of the stack to the temporary stack. So the stack will be arranged in ascending way.
+
+        When the new data is bigger than the top of the stack, move the top element of the 
+        stack to the temporary stack. So the stack will be arranged in ascending way.
+
+        After that repeat the process whenever the condition is reached.
+
+        After new data inserted into the main stack, all data in the temp stack must be moved 
+        again into the main stack.
     */
     for(int i = 0; i < sizeOfStack; i++)
     {
@@ -113,8 +118,6 @@ int main()
         {
             theStack.Push(tempStack.Pop());
         }
-        
-        cout << "Stack top " << theStack.TopStack() << "\n";
     }
 
     cout << "\n----- Pop Process -----\n";
