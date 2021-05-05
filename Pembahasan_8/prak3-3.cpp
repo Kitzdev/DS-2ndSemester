@@ -3,12 +3,6 @@
 #include <stdlib.h>
 using namespace std;
 
-struct node 
-{
-    int data;
-    node *link = NULL;
-};
-
 /*
     I use the single linked list to create this queue.
 
@@ -19,6 +13,12 @@ struct node
 */
 class Queue
 {
+    struct node
+    {
+        int data;
+        node *link = NULL;
+    };
+    
     public:
 
     node *queueHead = (node *)malloc(sizeof(node));

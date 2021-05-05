@@ -4,14 +4,14 @@
 #include <iomanip>
 using namespace std;
 
-struct node
-{
-    int data;
-    node *link = NULL;
-};
-
 class Stack
 {
+    struct node
+    {
+        int data;
+        node *link = NULL;
+    };
+
     public:
 
     node *stackHead = (node *)malloc(sizeof(node));
