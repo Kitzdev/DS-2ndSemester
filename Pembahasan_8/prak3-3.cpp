@@ -10,7 +10,10 @@ struct node
 };
 
 /*
+    I use the single linked list to create this queue.
+
     The tail was used to push data to the queue and the head used to pop data from the queue.
+
     En queue from the tail makes the queue has O(1) time complexity when enqueueing data.
     Dequeue from the tail also makes the queue has O(1) time complexity when dequeuing data.
 */
@@ -37,10 +40,23 @@ class Queue
     //Check the first element of the queue.
     int FirstElement()
     {
-        return queueTail -> link -> data;
+        if(!IsEmpty())
+        {
+            return queueTail -> link -> data;
+
+        } else
+        {
+            return -1;  //-1 code means the queue is already empty.
+        }
     }
 
-    //Enqueue new data to the queue.
+    /*
+        En queue new data to the queue.
+
+        If the queue is empty, we set the head and the tail pointing into the first node.
+
+        If the queue is not empty, we only need to move the tail.
+    */
     void Enqueue(int data)
     {
         node *newNode =  (node * )malloc(sizeof(node));
@@ -62,16 +78,23 @@ class Queue
     //Dequeue data from the queue. 
     int Dequeue()
     {
-        int tempData;
-        node *tempNode = (node *)malloc(sizeof(node));
+        if(!IsEmpty())
+        {
+            int tempData;
+            node *tempNode = (node *)malloc(sizeof(node));
 
-        tempNode -> link = queueHead -> link;
-        tempData = tempNode -> link -> data;
-        queueHead -> link = queueHead -> link -> link;
-        free(tempNode -> link);
-        tempNode -> link = NULL;
+            tempNode -> link = queueHead -> link;
+            tempData = tempNode -> link -> data;
+            queueHead -> link = queueHead -> link -> link;
+            free(tempNode -> link);
+            tempNode -> link = NULL;
 
-        return tempData;
+            return tempData;
+            
+        } else
+        {
+            return -1; //-1 code means the queue is already empty.
+        }
     }
 };
 
