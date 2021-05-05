@@ -16,33 +16,6 @@ class Stack
 
     node *stackHead = (node *)malloc(sizeof(node));
 
-    //Push a new element to the stack.
-    void Push(int data)
-    {
-        node *newNode = (node *)malloc(sizeof(node));
-        newNode -> data = data;
-        newNode -> link = stackHead -> link;
-        stackHead -> link = newNode;
-    }   
-
-    //Pop the most top element from the stack.
-    int Pop()
-    {
-        node *tempPointer = (node *)malloc(sizeof(node));
-        tempPointer -> link = stackHead -> link -> link;
-        int tempData = stackHead -> link -> data;
-        free(stackHead -> link);
-        stackHead -> link = tempPointer -> link;
-
-        return tempData;
-    }
-
-    //Check the most top element from the stack.
-    int TopStack()
-    {
-        return stackHead -> link -> data;
-    }
-
     //Check whether the stack is empty or not.
     bool IsEmpty()
     {
@@ -55,7 +28,55 @@ class Stack
             return false;
         } 
     }
-    
+
+    /*
+        Push a new element to the stack.
+        This push function does not need check wether the stack is full or not because we use a linked list so the stack will never be full if the memory is still available.
+    */
+    void Push(int data)
+    {
+        node *newNode = (node *)malloc(sizeof(node));
+        newNode -> data = data;
+        newNode -> link = stackHead -> link;
+        stackHead -> link = newNode;
+    }   
+
+    //Pop the most top element from the stack.
+    int Pop()
+    {
+        if(!IsEmpty())
+        {
+            node *tempPointer = (node *)malloc(sizeof(node));
+            tempPointer -> link = stackHead -> link -> link;
+            int tempData = stackHead -> link -> data;
+            free(stackHead -> link);
+            stackHead -> link = tempPointer -> link;
+
+            return tempData;
+
+        } else
+        {
+            cout << "Stack is already empty!\n";
+
+            return -1;  //-1 code means the stack is already empty
+        }
+    }
+
+    //Check the most top element from the stack.
+    int TopStack()
+    {
+        if(!IsEmpty())
+        {
+            return stackHead -> link -> data;
+
+        } else
+        {
+            cout << "Stack is already empty!\n";
+
+            return -1;
+        }
+    }
+
     //Print the contents of the stack. 
     void PrintStack()
     {
@@ -87,7 +108,12 @@ int main()
 
     /*
         Push random numbers to the stacks.
+
         When the new data is bigger than the top of the stack, move the top element of the stack to the temporary stack. So the stack will be arranged in ascending way.
+
+        After that repeat the process whenever the condition is reached.
+
+        After new data inserted into the main stack, all data in the temp stack must be moved again into the main stack.
     */
     for(int i = 0; i < poolSize; i++)
     {
