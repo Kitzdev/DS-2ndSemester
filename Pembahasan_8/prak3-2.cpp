@@ -105,6 +105,8 @@ int main()
 
     Stack theStack;
     Stack tempStack;
+    theStack.stackHead -> link = NULL;
+    tempStack.stackHead -> link = NULL;
 
     /*
         Push random numbers to the stacks.

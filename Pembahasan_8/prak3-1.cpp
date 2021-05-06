@@ -7,7 +7,7 @@ using namespace std;
 class Stack
 {
     struct node
-    {
+    {   
         int data;
         node *link = NULL;
     };
@@ -15,7 +15,7 @@ class Stack
     public:
 
     node *stackHead = (node *)malloc(sizeof(node));
-
+    
     //Check whether the stack is empty or not.
     bool IsEmpty()
     {
@@ -103,11 +103,12 @@ int main()
     int poolSize = 10;
 
     Stack theStack;
+    theStack.stackHead -> link = NULL;
 
     //Push random numbers to the stacks.
     for(int i = 0; i < poolSize; i++)
     {
-        theStack.Push((rand() % 1000000));
+        theStack.Push((rand() % 1000000) + 1);
     }
 
     cout << "First Node Address: " << theStack.stackHead -> link << "\n\n";

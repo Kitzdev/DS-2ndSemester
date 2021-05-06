@@ -101,6 +101,8 @@ class Queue
 int main()
 {
     Queue theQueue;
+    theQueue.queueHead -> link = NULL;
+    theQueue.queueTail -> link = NULL;
     int poolSize = 10;
     int tempData = 0;
 
