@@ -72,7 +72,7 @@ int main()
 
             } while (dataContainer != 0);
             
-            theTree.Insert(theTree.root, dataContainer);
+            theTree.root = theTree.Insert(theTree.root, dataContainer);
         }
 
     } while(userAnswerI != 0);
