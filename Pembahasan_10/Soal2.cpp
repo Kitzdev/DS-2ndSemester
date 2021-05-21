@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 using namespace std;
 
 //This class is declared as a Binary Search Tree. But, in this file i will call it a Tree only.
