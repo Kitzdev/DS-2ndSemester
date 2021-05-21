@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+//This class is declared as a Binary Search Tree. But, in this file i will call it a Tree only.
 class Tree
 {
     struct node
@@ -14,6 +15,7 @@ class Tree
 
     node* root = (node*)malloc(sizeof(node));
 
+    //Used to create a new node and return it's address.
     node* CreateNewNode(int data)
     {
         node* newNode = (node*)malloc(sizeof(node));
@@ -23,6 +25,13 @@ class Tree
         return newNode;
     }
 
+    /*
+        This Insert function is used to insert a new node into the tree by obtaining the root address of the tree.
+
+        Take two arguments, the root address of the tree and the data that want to be inserted.
+
+        Use the recursive method because this function assumes that every node can act as a root. So we can decide whether the new data will be inserted on the left or right side of the tree.
+    */
    node* Insert(node* root, int data)
     {    
         if(root == NULL)
