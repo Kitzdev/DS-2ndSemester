@@ -33,7 +33,7 @@ class Tree
 
         Use the recursive method because this function assumes that every node can act as a root. So we can decide whether the new data will be inserted on the left or right side of the tree.
     */
-   node* Insert(node* root, int data)
+    node* Insert(node* root, int data)
     {    
         if(root == NULL)
         {
@@ -58,7 +58,7 @@ class Tree
         2. Go to the left subtree.
         3. Go to the right subtree.
 
-        This function takes one argument which is the root of a tree
+        This function takes one argument which is the root of a tree.
 
         This function uses recursive by assuming that each of the nodes will do the pre-order thing.
     */
