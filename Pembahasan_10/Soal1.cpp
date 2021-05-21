@@ -18,29 +18,27 @@ class Tree
     {
         node* newNode = (node*)malloc(sizeof(node));
         newNode -> data = data;
-        newNode -> leftLink = NULL;
-        newNode -> rightLink = NULL;
+        newNode -> leftLink = newNode -> rightLink = NULL;
 
         return newNode;
     }
 
    node* Insert(node* root, int data)
-    {
-        node* tempRoot = (node*)malloc(sizeof(node));
-        tempRoot = root;
-    
-        if(tempRoot == NULL)
+    {    
+        if(root == NULL)
         {
             return CreateNewNode(data);
 
-        } else if(tempRoot -> data >= data)
+        } else if(root -> data >= data)
         {
-            tempRoot -> leftLink = Insert(tempRoot -> leftLink, data);
+            root -> leftLink = Insert(root -> leftLink, data);
 
         } else
         {
-            tempRoot -> rightLink = Insert(tempRoot -> rightLink, data);
+            root -> rightLink = Insert(root -> rightLink, data);
         }
+
+        return root;
     }
 
 };
@@ -55,7 +53,7 @@ int main()
     
     do
     {
-        cout << "Menu\n1. Tambah data ke tree\n2. Cari data\n3. Hapus data dari tree - deletion by Merging\n4. Hapus data dari tree - deletion by Copying\n5. Pre-order traversal\n6. Post-order traversal\n7. In-oder traversal\n0. Keluar\n\nPilihan Anda : ";
+        cout << "Menu\n1. Tambah data ke tree\n2. Cari data\n3. Hapus data dari tree - deletion by Merging\n4. Hapus data dari tree - deletion by Copying\n5. Pre-order traversal\n6. Post-order traversal\n7. In-oder traversal\n8. Level-order traversal\n0. Keluar\n\nPilihan Anda : ";
         cin >> userAnswerI;
 
         if(userAnswerI == 1)
@@ -75,5 +73,5 @@ int main()
             theTree.root = theTree.Insert(theTree.root, dataContainer);
         }
 
-    } while(userAnswerI != 0);
+    } while(userAnswerI > 0 && userAnswerI <= 8);
 }
