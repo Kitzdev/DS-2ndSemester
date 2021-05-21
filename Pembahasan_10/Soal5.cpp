@@ -56,30 +56,28 @@ class Tree
 
         This function take two element as the argument which is the address of the tree and the data want to be searched.
     */
-    void SearchData(node* root, int data)
+    node* SearchData(node* root, int data)
     {
         while(root != NULL)
         {
             if(root -> data == data)
             {
-                break;
-            }
+                cout << "Data " << data << " ditemukan pada alamat " << root << "\n\n";
+                return root;
 
-            if(root -> data >= data)
+            } else if(root -> data > data)
             {
-                cout << "Data " << root -> data << " pergi ke kiri " << "\n";
-
+                cout << "Data " << root -> data << " pergi ke kiri\n";
                 root = root -> leftLink;
 
             } else
             {
-                cout << "Data " << root -> data << " pergi ke kanan " << "\n";
-
+                cout << "Data " << root -> data << " pergi ke kanan\n";
                 root = root -> rightLink;
             }
         }
-
-        cout << "Data " << data << " ditemukan pada alamat " << root << "\n\n";
+        
+        return root;
     }
 };
 
