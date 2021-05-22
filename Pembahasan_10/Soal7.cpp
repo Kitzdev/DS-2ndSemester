@@ -179,7 +179,7 @@ class Tree
         {
             if(root -> data == data)
             {
-                cout << "Data " << data << " ditemukan pada alamat " << root << "\n\n";
+                cout << "Data " << data << " ditemukan pada alamat " << root << "\n";
                 return root;
 
             } else if(root -> data > data)
@@ -287,6 +287,7 @@ int main()
             cin >> dataContainer;
 
             theTree.SearchData(theTree.root, dataContainer);
+            cout << "\n";
     
         }else if(userAnswerI == 3 || userAnswerI == 4)
         {
