@@ -232,14 +232,17 @@ class Tree
                     nodeChanger = root -> leftLink;
 
                     //Store the rightmost node of the left subtree of the node that will be deleted.
-                    node* rightMostNode = root -> leftLink -> rightLink;
+                    node* rightMostNode = root -> leftLink;
 
-                    /*
-                        Looping for search the rightmost node.
-                    */
-                    while(rightMostNode -> leftLink != NULL)
+                    if(rightMostNode -> rightLink != NULL)
                     {
-                        rightMostNode = rightMostNode ->  rightLink;
+                        /*
+                            Looping for search the rightmost node.
+                        */
+                        while(rightMostNode -> rightLink != NULL)
+                        {
+                            rightMostNode = rightMostNode -> rightLink;
+                        }
                     }
                     
                     rightMostNode ->  rightLink = root -> rightLink;
