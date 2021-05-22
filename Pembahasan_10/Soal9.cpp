@@ -249,10 +249,10 @@ class Tree
 
                 } else if(type == 4)
                 {
-                    //RMIP: Rightmost Inorder Predecessor.
-                    node* RMIP = root -> leftLink;
-                    node* beforeRMIP = RMIP;
+                    node* RMIP = root -> leftLink;  //RMIP: Rightmost Inorder Predecessor.
+                    node* beforeRMIP = RMIP;    //Node before RMIP.
 
+                    //Search for the rightmost node of the left subtree (RMIP).
                     while(RMIP -> rightLink != NULL)
                     {
                         if(RMIP -> rightLink -> rightLink != NULL)
@@ -263,13 +263,16 @@ class Tree
                         RMIP = RMIP -> rightLink;
                     }
                     
+                    //Replace the position of the RMIP if RMIP left side exists.
                     if(RMIP -> leftLink != NULL)
                     {
                         beforeRMIP -> rightLink = RMIP -> leftLink;
                     }
 
+                    //Update the new right side of RMIP.
                     RMIP -> rightLink = root -> rightLink;
 
+                    //Update the new left part of RMIP.
                     if(RMIP != root -> leftLink)
                     {
                         RMIP -> leftLink = root -> leftLink;
